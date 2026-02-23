@@ -22,6 +22,7 @@ const canvasWidthMinimum = 10;
 const canvasHeightMinimum = 10;
 let canvasWidth = canvasWidthMinimum;
 let canvasHeight = canvasHeightMinimum;
+let pixelCalculatedWidth = 0;
 
 // Set canvas size
 setCanvasSizeButon.addEventListener("click", (event) => {
@@ -40,6 +41,15 @@ function setCanvasSize () {
         canvasWidth = width;
         canvasHeight = height;
         createCanvas();
+        
+        // Make row same height as pixel width for nice square shape
+        const pixel = document.querySelector(".pixel");
+        pixelCalculatedWidth = pixel.getBoundingClientRect().width;
+        const allRows = document.querySelectorAll(".row");
+        console.log(`allRows = ${allRows}`);
+        allRows.forEach((item) => {
+            item.setAttribute("style", `height: ${pixelCalculatedWidth}px`);
+        });
     }
 
 }

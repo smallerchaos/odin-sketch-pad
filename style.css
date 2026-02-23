@@ -5,14 +5,12 @@ body {
     padding: 0;
 }
 
-.canvas {
-    display: flex;
-    margin: 40px;
+#canvas {
+    margin: 50px;
 }
 
 .row {
     display: flex;
-    height: 100px;
     flex: 1;
 }
 

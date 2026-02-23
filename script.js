@@ -6,6 +6,8 @@
 // Add ability to pick different "brushes" (bonus)
 // Add clear canvas (bonus)
 
+// ---------- Variables ---------- //
+
 // HTML Elements Variables
 const canvas = document.querySelector("#canvas");
 const canvasWidthInput = document.querySelector("#canvas-width");
@@ -15,20 +17,8 @@ const canvasSizeErrorElement = document.querySelector(".canvas-size-error");
 const brushesContainer = document.querySelector("#brushes");
 
 const paintButton = document.querySelector("#paint");
-paintButton.addEventListener("click", () => {
-    isPaint = true;
-    paintButton.classList.add("active");
-    isEraser = false;
-    eraserButton.classList.remove("active");
-});
-
+const randomColorPaintButton = document.querySelector("#random-color-paint");
 const eraserButton = document.querySelector("#eraser");
-eraserButton.addEventListener("click", () => {
-    isPaint = false;
-    paintButton.classList.remove("active");
-    isEraser = true;
-    eraserButton.classList.add("active");
-});
 
 // Input Defaults
 canvasWidthInput.value = 10;
@@ -41,7 +31,10 @@ let canvasWidth = canvasWidthMinimum;
 let canvasHeight = canvasHeightMinimum;
 let pixelCalculatedWidth = 0;
 let isPaint = true;
+let isRandomPaint = false;
 let isEraser = false;
+
+// ---------- Functionality ---------- //
 
 // Set canvas size
 setCanvasSizeButon.addEventListener("click", (event) => {
@@ -85,8 +78,14 @@ function createRow () {
         pixel.addEventListener("mouseenter", () => {
             if (isEraser == true) {
                 pixel.classList.remove("colored");
-            } else if (isEraser == false) {
+                pixel.removeAttribute("style");
+            } else if (isPaint == true) {
                 pixel.classList.add("colored");
+                pixel.removeAttribute("style");
+            } else if (isRandomPaint == true) {
+                if (pixel.getAttribute("style") == null) {
+                    pixel.setAttribute("style", `background-color: rgb(${randomRgb()}, ${randomRgb()}, ${randomRgb()});`);
+                }
             }
         });
         rowContainer.appendChild(pixel);
@@ -107,4 +106,36 @@ function destroyCanvas () {
         const child = document.querySelector(".row");
         canvas.removeChild(child);
     }
+}
+
+// Brush types
+paintButton.addEventListener("click", () => {
+    isPaint = true;
+    paintButton.classList.add("active");
+    isRandomPaint = false;
+    randomColorPaintButton.classList.remove("active");
+    isEraser = false;
+    eraserButton.classList.remove("active");
+});
+
+randomColorPaintButton.addEventListener("click", () => {
+    isPaint = false;
+    paintButton.classList.remove("active");
+    isRandomPaint = true;
+    randomColorPaintButton.classList.add("active");
+    isEraser = false;
+    eraserButton.classList.remove("active");
+});
+
+eraserButton.addEventListener("click", () => {
+    isPaint = false;
+    paintButton.classList.remove("active");
+    isRandomPaint = false;
+    randomColorPaintButton.classList.remove("active");
+    isEraser = true;
+    eraserButton.classList.add("active");
+});
+
+function randomRgb () {
+    return Math.round(Math.random() * 255);
 }

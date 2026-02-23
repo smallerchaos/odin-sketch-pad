@@ -41,7 +41,7 @@ function setCanvasSize () {
         canvasWidth = width;
         canvasHeight = height;
         createCanvas();
-        
+
         // Make row same height as pixel width for nice square shape
         const pixel = document.querySelector(".pixel");
         pixelCalculatedWidth = pixel.getBoundingClientRect().width;
@@ -62,6 +62,9 @@ function createRow () {
         const pixel = document.createElement("div");
         pixel.textContent = "";
         pixel.className = "pixel";
+        pixel.addEventListener("mouseenter", () => {
+            pixel.classList.add("colored");
+        });
         rowContainer.appendChild(pixel);
     }
     canvas.appendChild(rowContainer);

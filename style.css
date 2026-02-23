@@ -19,6 +19,10 @@ body {
     border: 1px dotted dodgerblue;
 }
 
+.colored {
+    background-color: deeppink;
+}
+
 .hidden {
     display: none;
 }

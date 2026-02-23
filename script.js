@@ -12,6 +12,23 @@ const canvasWidthInput = document.querySelector("#canvas-width");
 const canvasHeightInput = document.querySelector("#canvas-height");
 const setCanvasSizeButon = document.querySelector("#set-canvas-size");
 const canvasSizeErrorElement = document.querySelector(".canvas-size-error");
+const brushesContainer = document.querySelector("#brushes");
+
+const paintButton = document.querySelector("#paint");
+paintButton.addEventListener("click", () => {
+    isPaint = true;
+    paintButton.classList.add("active");
+    isEraser = false;
+    eraserButton.classList.remove("active");
+});
+
+const eraserButton = document.querySelector("#eraser");
+eraserButton.addEventListener("click", () => {
+    isPaint = false;
+    paintButton.classList.remove("active");
+    isEraser = true;
+    eraserButton.classList.add("active");
+});
 
 // Input Defaults
 canvasWidthInput.value = 10;
@@ -23,10 +40,13 @@ const canvasHeightMinimum = 10;
 let canvasWidth = canvasWidthMinimum;
 let canvasHeight = canvasHeightMinimum;
 let pixelCalculatedWidth = 0;
+let isPaint = true;
+let isEraser = false;
 
 // Set canvas size
 setCanvasSizeButon.addEventListener("click", (event) => {
     setCanvasSize();
+    brushesContainer.classList.remove("hidden");
 })
 function setCanvasSize () {
     const width = canvasWidthInput.value;
@@ -63,7 +83,11 @@ function createRow () {
         pixel.textContent = "";
         pixel.className = "pixel";
         pixel.addEventListener("mouseenter", () => {
-            pixel.classList.add("colored");
+            if (isEraser == true) {
+                pixel.classList.remove("colored");
+            } else if (isEraser == false) {
+                pixel.classList.add("colored");
+            }
         });
         rowContainer.appendChild(pixel);
     }

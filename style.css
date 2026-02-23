@@ -5,6 +5,10 @@ body {
     padding: 0;
 }
 
+button {
+    border: none;
+}
+
 #canvas {
     margin: 50px;
 }
@@ -21,6 +25,10 @@ body {
 
 .colored {
     background-color: deeppink;
+}
+
+button.active {
+    border: 5px solid pink;
 }
 
 .hidden {

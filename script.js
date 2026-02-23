@@ -80,15 +80,30 @@ function createRow () {
         pixel.textContent = "";
         pixel.className = "pixel";
         pixel.addEventListener("mouseenter", () => {
+
             if (isEraser == true) {
                 pixel.classList.remove("colored");
                 pixel.removeAttribute("style");
-            } else if (isPaint == true) {
-                pixel.classList.add("colored");
-                pixel.removeAttribute("style");
-            } else if (isRandomPaint == true) {
-                if (pixel.getAttribute("style") == null) {
-                    pixel.setAttribute("style", `background-color: rgb(${randomRgb()}, ${randomRgb()}, ${randomRgb()});`);
+            } else if (pixel.classList.contains("colored") == true) {
+                // has been colored (via class) already!
+                pixelOpacity = pixel.getAttribute("style").split(": ")[1];
+                pixelOpacity = pixelOpacity.split("").splice(0,pixelOpacity.length -1).join("");
+                pixelOpacity = Number(pixelOpacity) + 0.1;
+                pixel.setAttribute("style", `opacity: ${pixelOpacity};`);
+            } else if (pixel.getAttribute("style") !== null) {
+                // background color has been applied!
+                let pixelAttributes = pixel.getAttribute("style").split(";")[0];
+                pixelOpacity = Number(pixel.getAttribute("style").split(";")[1].split(":")[1]) + 0.1;
+                pixel.setAttribute("style", `${pixelAttributes}; opacity: ${pixelOpacity};`);
+            } else {
+                // is blank and hasn't been painted in any way yet
+                if (isPaint == true) {
+                    pixel.classList.add("colored");
+                    pixel.removeAttribute("style");
+                    pixel.setAttribute("style", `opacity: 0.1;`);
+                } else if (isRandomPaint == true) {
+                    console.log(`random color`);
+                    pixel.setAttribute("style", `background-color: rgb(${randomRgb()}, ${randomRgb()}, ${randomRgb()}); opacity: 0.1;`);
                 }
             }
         });

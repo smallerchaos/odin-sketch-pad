@@ -1,12 +1,12 @@
 body {
-    background-color: indigo;
-    color: white;
+    background-color: whitesmoke;
+    color: darkslateblue;
     margin: 0;
     padding: 0;
 }
 
 button {
-    border: none;
+    border-color: darkslateblue;
 }
 
 #canvas {
@@ -20,11 +20,11 @@ button {
 
 .pixel {
     flex: 1;
-    border: 1px dotted dodgerblue;
+    border: 1px dotted darkslateblue;
 }
 
 .colored {
-    background-color: deeppink;
+    background-color: darkslateblue;
 }
 
 button.active {

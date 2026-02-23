@@ -25,10 +25,12 @@ canvasWidthInput.value = 10;
 canvasHeightInput.value = 10;
 
 // Global Variables
-const canvasWidthMinimum = 10;
-const canvasHeightMinimum = 10;
-let canvasWidth = canvasWidthMinimum;
-let canvasHeight = canvasHeightMinimum;
+const canvasWidthMin = 10;
+const canvasHeightMin = 10;
+const canvasWidthMax = 100;
+const canvasHeightMax = 100;
+let canvasWidth = canvasWidthMin;
+let canvasHeight = canvasHeightMin;
 let pixelCalculatedWidth = 0;
 let isPaint = true;
 let isRandomPaint = false;
@@ -39,13 +41,15 @@ let isEraser = false;
 // Set canvas size
 setCanvasSizeButon.addEventListener("click", (event) => {
     setCanvasSize();
-    brushesContainer.classList.remove("hidden");
 })
 function setCanvasSize () {
     const width = canvasWidthInput.value;
     const height = canvasHeightInput.value;
 
-    if (width < canvasWidthMinimum|| height < canvasHeightMinimum) {
+    if (width < canvasWidthMin ||
+    height < canvasHeightMin ||
+    width > canvasWidthMax ||
+    height > canvasHeightMax) {
         canvasSizeErrorElement.textContent = "Please select a number between 10 and 100";
         canvasSizeErrorElement.classList.remove("hidden");
     } else {
@@ -54,6 +58,7 @@ function setCanvasSize () {
         canvasWidth = width;
         canvasHeight = height;
         createCanvas();
+        brushesContainer.classList.remove("hidden");
 
         // Make row same height as pixel width for nice square shape
         const pixel = document.querySelector(".pixel");
@@ -64,7 +69,6 @@ function setCanvasSize () {
             item.setAttribute("style", `height: ${pixelCalculatedWidth}px`);
         });
     }
-
 }
 
 // Create flexbox row (with correct number of pixels)

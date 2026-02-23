@@ -10,11 +10,13 @@
     <h1>Sketchpad</h1>
     <h2>Canvas Size</h2>
     <span>width</span>
-    <input id="canvas-width" type="number" min="16" max="100">
+    <input id="canvas-width" type="number" min="10" max="100">
     <span> x </span>
     <span>height</span>
-    <input id="canvas-height" type="number" min="16" max="100">
-    <button class="set-canvas-size">Set</button>
+    <input id="canvas-height" type="number" min="10" max="100">
+    <button id="set-canvas-size">Set</button>
+    <p class="canvas-size-error error hidden">Please select a number between 10 and 100.</p>
+
     <div id="canvas" class=""></div>
 </body>
 </html>

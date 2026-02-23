@@ -8,13 +8,43 @@
 
 // HTML Elements Variables
 const canvas = document.querySelector("#canvas");
-// canvas.classList.add("pink");
+const canvasWidthInput = document.querySelector("#canvas-width");
+const canvasHeightInput = document.querySelector("#canvas-height");
+const setCanvasSizeButon = document.querySelector("#set-canvas-size");
+const canvasSizeErrorElement = document.querySelector(".canvas-size-error");
+
+// Input Defaults
+canvasWidthInput.value = 10;
+canvasHeightInput.value = 10;
 
 // Global Variables
-let canvasWidth = 10;
-let canvasHeight = 5;
+const canvasWidthMinimum = 10;
+const canvasHeightMinimum = 10;
+let canvasWidth = canvasWidthMinimum;
+let canvasHeight = canvasHeightMinimum;
 
-// Create flexbox row
+// Set canvas size
+setCanvasSizeButon.addEventListener("click", (event) => {
+    setCanvasSize();
+})
+function setCanvasSize () {
+    const width = canvasWidthInput.value;
+    const height = canvasHeightInput.value;
+
+    if (width < canvasWidthMinimum|| height < canvasHeightMinimum) {
+        canvasSizeErrorElement.textContent = "Please select a number between 10 and 100";
+        canvasSizeErrorElement.classList.remove("hidden");
+    } else {
+        canvasSizeErrorElement.classList.add("hidden");
+        destroyCanvas();
+        canvasWidth = width;
+        canvasHeight = height;
+        createCanvas();
+    }
+
+}
+
+// Create flexbox row (with correct number of pixels)
 function createRow () {
     const rowContainer = document.createElement("div");
     rowContainer.className = "row";
@@ -27,10 +57,17 @@ function createRow () {
     canvas.appendChild(rowContainer);
 }
 
+// Create canvas (add correct number of rows)
 function createCanvas () {
     for (let i = 0; i < canvasHeight; i++) {
         createRow();
     }
 }
 
-createCanvas();
+// Remove existing rows
+function destroyCanvas () {
+    while (document.querySelector(".row") !== null) {
+        const child = document.querySelector(".row");
+        canvas.removeChild(child);
+    }
+}

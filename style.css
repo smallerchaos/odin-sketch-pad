@@ -1,0 +1,26 @@
+body {
+    background-color: indigo;
+    color: white;
+    margin: 0;
+    padding: 0;
+}
+
+.canvas {
+    display: flex;
+    margin: 40px;
+}
+
+.row {
+    display: flex;
+    height: 100px;
+    flex: 1;
+}
+
+.pixel {
+    flex: 1;
+    border: 1px dotted dodgerblue;
+}
+
+.hidden {
+    display: none;
+}
